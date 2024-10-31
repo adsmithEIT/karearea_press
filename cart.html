@@ -3,134 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Cart</title>
+    <title>Kārearea Press</title>
 </head>
-
+<!------------------------------BODY------------------------------------------------>
 <body>
-    <!--Navigation bar--> 
-    <nav>
-        <!--Add a sandwich icon here-->
-        <div class="sandwich-icon-area">
-            <p onclick="openNav()"> &#9776; <span>Welcome to the world of web technologies</span> </p>
-        </div>       
-    </nav>
-
-    <!--The curtain dropdown menu-->
-    <div id="myNav" class="overlay">
-        <p class="close-icon" onclick="closeNav()"> &times; </p>
-        <div class="overlay-content">
-            <a href="index.html">HOME</a>
-            <a href="#">WEB LANGAGUES</a>
-            <a href="#">WEB DESIGN</a>
-            <a href="#">CONTACT US</a>
-        </div>
+<!--Navigation bar--> 
+<nav>
+    <div class="navWrapper">
+    <div class="sandwich-icon-area">
+        <p onclick="openNav()"> &#9776;</p>
     </div>
 
-    <script>
-        //When users click on "sandwich icon", open or show the curtain menu layer
-        function openNav() {
-            document.getElementById("myNav").style.display = "block";
+    <div class="smallHorizontalNav">
+        <ul>
+            <li><input type="text" id="searchInput" onchange="openSearch()">
+            <li><a href="account.html"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></button></a></li>
+        </ul>
+    </div>
+
+    <div class="largeHorizontalNav">
+        <ul>
+            <li><a href="index.html" ><i class="material-icons">home</i></a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><input type="text" id="searchInputLarge" onchange="openSearchLRG()">
+            <li><a href="account.html"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></a></li>
+        </ul>
+    </div>
+</div>
+
+<!--curtain menu-->
+    <div id="myNav" class="overlay">
+    <p class="close-icon" onclick="closeNav()"> &times;</p>
+    <div class="overlay-content">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+</div>
+    
+</nav>
+<!------------------------------Header Area-----------------------------------------> 
+ <header> 
+    <div>
+    <h1>Kārearea Press</h1> 
+    </div>
+</header>
+
+<!--Main Area--> 
+<main>
+    <div id="checkOut">
+    <h1>Shopping Cart</h1>
+    <br>
+    <!--<h2>ITEMS IN <span style='font-size: 22px;'>&#128722;</span></h2>-->        
+    <div id="shopping-cart">
+        <table id="itemTable">                
+            <tr>
+                <th style="width:55%">Item</th>
+                <th style="width:15%">Quantity</th>
+                <th style="width:15%">Price</th>
+                <th style="width:15%">Action</th>
+              </tr>
+        </table>
+        <br>
+    </div>
+    <div id="cartBottom">
+        <p style="font-weight: bold;">TOTAL: $<span id="totalPrice">0.0</span></p>
+    <div id="checkout">
+        <br>
+            <button onclick="CheckOut()">Check out</button>
+    </div>
+    </div>
+</div>
+</main>
+
+<script src="data.js"></script>
+
+<script>
+
+    function openSearch() {            
+        localStorage.setItem('searchInput', document.getElementById("searchInput").value); 
+        window.open("books.html", "_self");
+    }
+
+    function openSearchLRG() {            
+        localStorage.setItem('searchInputLarge', document.getElementById("searchInputLarge").value); 
+        window.open("books.html", "_self");
+    }
+
+    function CheckOut() {
+        alert("Yay! You bought books.");
+    }
+
+</script>
+
+<script>		
+    //------------------------------------------------------
+    //Show the shopping-cart
+    document.getElementById("shopping-cart").style.display = 'block';
+
+    //------------------------------------------------------
+    //DISPLAY ALL ITEMS IN THE CART            
+    let itemInCart = [];			
+    //Retrieving the existing items in the cart
+    //Check if this retString is null or null?
+    let retString = localStorage.getItem("updatedShoppingCart");    
+    if (retString == null || retString == "") {
+        itemInCart = [];
+    } else  {
+        itemInCart = JSON.parse(retString);	        
+        //itemInCart = [{id: 1, quantity: 1}];
+    }
+		
+    
+    let totalPrice = 0.0;
+    function displayCart() {
+        //--------------------  
+        //Update the item table              
+        let itemTable = document.getElementById("itemTable");
+         //Delete all rows except the th
+        for(var i = 1; i<itemTable.rows.length;){
+            itemTable.deleteRow(i);
         }
-        //Write the closeNav() method here
-        function closeNav() {
-            document.getElementById("myNav").style.display = "none";
+        //Update the item table
+        let totalPrice = 0;
+        for (let index = 0; index < itemInCart.length; index++) {
+            //Create a row using the inserRow() method and specify the index where you want to add the row
+            let row = itemTable.insertRow(-1); // We are adding at the end                
+            //Create table cells: arr.findIndex(p => p.property == someValue)
+            row.insertCell(0).innerText = items.find(item => item.id == itemInCart[index].id).title;
+            row.insertCell(1).innerHTML = itemInCart[index].quantity;
+            row.insertCell(2).innerHTML = itemInCart[index].quantity * items.find(item => item.id == itemInCart[index].id).price;
+            row.insertCell(3).innerHTML = '<button id="removeBTN" onclick="removeItem(' + itemInCart[index].id + ')">Remove</button>'; 
+
+            //Update totalPrice 
+            totalPrice += itemInCart[index].quantity * items.find(item => item.id == itemInCart[index].id).price;
         }
-    </script>
-
-    <main>
-		<h1>CHECK OUT</h1>
-        <h2>ITEMS IN <span style='font-size: 22px;'>&#128722;</span></h2>        
-        <div id="shopping-cart">
-            <p style="font-weight: bold;">TOTAL: $<span id="totalPrice">0.0</span></p>
-            <table id="itemTable">                
-                <tr>
-                    <th style="width:50%">Item</th>
-                    <th style="width:10%">Quantity</th>
-                    <th style="width:20%">Price</th>
-                    <th style="width:30%">Action</th>
-                  </tr>
-            </table>
-        </div>
-		
-		<script src="data.js"></script>   
-		
-		<script>		
-			//------------------------------------------------------
-            //Show the shopping-cart
-			document.getElementById("shopping-cart").style.display = 'block';
-
-            //------------------------------------------------------
-            //DISPLAY ALL ITEMS IN THE CART            
-			let itemInCart = [];			
-			//Retrieving the existing items in the cart
-			let retString = localStorage.getItem("updatedShoppingCart-Daniel");
-			// Retrieved array - check if this retString is null or empty or not?
-			if (retString == null || retString == "") {
-				itemInCart = [];
-			} else {
-				itemInCart = JSON.parse(retString);		
-			}		
-			
-            let totalPrice = 0.0;
-            function displayCart() {
-                //--------------------  
-                //Update the item table              
-                let itemTable = document.getElementById("itemTable");
-                 //Delete all rows except the th
-                for(var i = 1; i<itemTable.rows.length;){
-                    itemTable.deleteRow(i);
-                }
-                //Update the item table
-                let totalPrice = 0;
-                for (let index = 0; index < itemInCart.length; index++) {
-                    //Create a row using the inserRow() method and specify the index where you want to add the row
-                    let row = itemTable.insertRow(-1); // We are adding at the end                
-                    //Create table cells: arr.findIndex(p => p.property == someValue)
-                    row.insertCell(0).innerText = items.find(item => item.id == itemInCart[index].id).title;
-                    row.insertCell(1).innerHTML = itemInCart[index].quantity;
-                    row.insertCell(2).innerHTML = itemInCart[index].quantity * items.find(item => item.id == itemInCart[index].id).price;
-                    row.insertCell(3).innerHTML = '<button onclick="removeItem(' + itemInCart[index].id + ')">REMOVE</button>'; 
-
-                    //Update totalPrice 
-                    totalPrice += itemInCart[index].quantity * items.find(item => item.id == itemInCart[index].id).price;
-                }
-                //--------------------  
-                //Update totalPrice
-                document.getElementById("totalPrice").innerHTML = totalPrice;
+        //--------------------  
+        //Update totalPrice
+        document.getElementById("totalPrice").innerHTML = totalPrice;
+    }
+    
+    //Display all selected and existing items in cart
+    displayCart();
+    
+    //------------------------------------------------------
+    //RemoveItem function 
+    function removeItem(itemID) {                 
+        //Remove item from the itemInCart
+        itemInCart = itemInCart.reduce((updatedItems, item) => {
+            if (item.id != itemID) {
+                updatedItems.push(item);
             }
-			
-			//Display all selected and existing items in cart
-			displayCart();
-			
-			//------------------------------------------------------
-            //RemoveItem function 
-            function removeItem(itemID) {                 
-                //Remove item from the itemInCart
-                itemInCart = itemInCart.reduce((updatedItems, item) => {
-                    if (item.id != itemID) {
-                        updatedItems.push(item);
-                    }
-                    return updatedItems;
-                }, []);
-                //Display updated itemInCart
-                displayCart(); 
-				
-				//----------------------------------------
-				//CHECKOUT - Open a separate cart page
-				//Store this updated itemInCart in localStorage
-				localStorage.setItem("updatedShoppingCart-Daniel", JSON.stringify(itemInCart));
-            }
-		</script>
-		
-		
-		
+            return updatedItems;
+        }, []);
+        //Display updated itemInCart
+        displayCart(); 
 
-    </main>
+        //CHECKOUT - Open a separate cart page
+        //Store this updated itemInCart in localStorage
+        localStorage.setItem("updatedShoppingCart", JSON.stringify(itemInCart));     
+    }
+</script>
 
-    <!--Footer Area--> 
-    <footer> 
-        <p>ITWD5.130 Website Development<br> School of Computing, EIT.</p> 
-    </footer>
+
+<!--Footer Area--> 
+<footer> 
+    <div class="smallFooterNav">
+        <ul>
+            <li><input type="text" id="subscribeInput" onchange="subscribeNewsletter()"><button type="submit">Subscribe</button></li>
+            <br>
+            <li><a href="terms.html">Legal Information</a></li>
+            <br>
+           
+        </ul>
+    </div>
+
+    <div class="largeFooterNav">
+        <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><input type="text" id="subscribeInput" onchange="subscribeNewsletter()"><button type="submit">Subscribe</button></li>
+            <li><a href="terms.html">Legal Information</a></li>
+            
+        </ul>
+    </div>
+</footer>
+
+<script> 
+    function subscribeNewsletter() {
+       alert("Thanks! We'll be in touch.");
+     }
+   </script>
+
 </body>
 </html>

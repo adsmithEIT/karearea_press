@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Kārearea Press</title>
+</head>
+<!------------------------------BODY------------------------------------------------>
+<body>
+<!--Navigation bar--> 
+<nav>
+    <div class="navWrapper">
+    <div class="sandwich-icon-area">
+        <p onclick="openNav()"> &#9776;</p>
+    </div>
+
+    <div class="smallHorizontalNav">
+        <ul>
+            <li><input type="text" id="searchInput" onchange="openSearch()">
+            <li><a href="account.html"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></button></a></li>
+        </ul>
+    </div>
+
+    <div class="largeHorizontalNav">
+        <ul>
+            <li><a href="index.html"><i class="material-icons">home</i></a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><input type="text" id="searchInputLarge" onchange="openSearchLRG()">
+            <li><a href="account.html"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></a></li>
+        </ul>
+    </div>
+</div>
+
+<!--curtain menu-->
+    <div id="myNav" class="overlay">
+    <p class="close-icon" onclick="closeNav()"> &times;</p>
+    <div class="overlay-content">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+</div>
+    
+</nav>
+
+<!------------------------------Header Area-----------------------------------------> 
+ <header> 
+    <div>
+    <h1>Kārearea Press</h1> 
+    </div>
+</header>
+
+<!--Main Area--> 
+<main>
+    <div id="legalTXT">
+    <div id="copyright">
+        <h2>Copyright Statement</h2>
+        <br>
+        <p>This website was created as assessment for the web development course ITWD5.130 2024 Semester 2 at EIT, Hawke’s Bay, New Zealand.</p>
+        <br>
+        <p>Due to a lack of the resources required to create a unique catalogue, the displayed books are from the New Zealand publisher, Potton and Burton; with the exception of the following: <i>Mystical Mushrooms</i> and <i>Forager’s Treasury</i> from Allen and Unwin, <i>Fungi of Aotearoa</i> from Penguin, and <i>Know Your NZ Native Plants</i> from Upstart Press.</p>
+        <br>
+        <p>Much of the code was adopted from the ITWD5.130 Moodle site, as well as from w3schools.com.</p>
+        <br>
+        <p>Banner image from "Enraptored," by M. Bathurst, 2009, <i>New Zealand National Geographic</i>, Issue 098 (https://www.nzgeo.com/stories/enraptored/).</p>
+        <br>
+        <p>All usage of the above elements, and other imagery on the website, are used in accordance with section 43 of the New Zealand Copyright Act 1994 as fair dealing for the purposes of private study.</p>
+    </div>
+
+    <div id="privacy">
+        <h2>Privacy Policy</h2>
+        <br>
+        <p>Only customer information strictly necessary for transactional purposes will be retained.</p>
+        <br>
+        <p>The security and confidentiality of this information will be upheld.</p>
+        <br>
+        <p>Personal information will only be retained for active accounts. No personal information will be retained upon account deletion or through a formal written request.</p>
+        <br>
+        <p>No customer information will ever be disclosed to third parties outside of that required by New Zealand law.</p>
+    </div>
+    </div>
+    
+</main>
+
+<script src="data.js"></script>
+
+<script>
+
+    function openSearch() {            
+        localStorage.setItem('searchInput', document.getElementById("searchInput").value); 
+        window.open("books.html", "_self");
+    }
+
+    function openSearchLRG() {            
+        localStorage.setItem('searchInputLarge', document.getElementById("searchInputLarge").value); 
+        window.open("books.html", "_self");
+    }
+
+</script>
+
+    <!--Footer Area--> 
+<footer> 
+    <div class="smallFooterNav">
+        <ul>
+            <li><input type="text" id="subscribeInput" onchange="subscribeNewsletter()"><button type="submit">Subscribe</button></li>
+            <br>
+            <li><a href="terms.html">Legal Information</a></li>
+            <br>
+            
+        </ul>
+    </div>
+
+    <div class="largeFooterNav">
+        <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><input type="text" id="subscribeInput"><button type="submit" onclick="subscribeNewsletter()">Subscribe</button></li>
+            <li><a href="terms.html" class="active">Legal Information</a></li>
+            
+        </ul>
+    </div>
+</footer>
+
+<script> 
+
+function subscribeNewsletter() {
+    alert("Thanks! We'll be in touch.");
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Kārearea Press</title>
+</head>
+<!------------------------------BODY------------------------------------------------>
+<body>
+<!--Navigation bar--> 
+<nav>
+    <div class="navWrapper">
+    <div class="sandwich-icon-area">
+        <p onclick="openNav()"> &#9776;</p>
+    </div>
+
+    <div class="smallHorizontalNav">
+        <ul>
+            <li><input type="text" id="searchInput" onchange="openSearch()">
+            <li><a href="account.html"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></button></a></li>
+        </ul>
+    </div>
+
+    <div class="largeHorizontalNav">
+        <ul>
+            <li><a href="index.html"><i class="material-icons">home</i></a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><input type="text" id="searchInputLarge" onchange="openSearchLRG()">
+            <li><a href="account.html"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></a></li>
+        </ul>
+    </div>
+</div>
+
+<!--curtain menu-->
+    <div id="myNav" class="overlay">
+    <p class="close-icon" onclick="closeNav()"> &times;</p>
+    <div class="overlay-content">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+</div>
+    
+</nav>
+<!------------------------------Header Area-----------------------------------------> 
+ <header> 
+    <div>
+    <h1>Kārearea Press</h1> 
+    </div>
+</header>
+
+<!--Main Area--> 
+<main>
+    <div id="about">
+    <div id="aboutTXT">
+        <h2>About Us</h2>
+        <br>
+        <p>We are a small publishing company working to increase knowledge and awareness of New Zealand’s unique wildlife and environment.  Our books draw on extensive research and evidence collected in the field. While being well informed by scientific literature, they are not dry academic tomes. Our titles are highly readable and engaging with extensive full colour photography and illustrations. </p>
+    </div>
+    <div id="aboutSmlIMG">
+        <img src="Images/nzfalcon.jpg" height="250" alt="NZ Falcon">
+        <br>
+        <p>McKenzie, C.  (2019). <i>New Zealand falcon</i> [Photograph]. Flickr. https://www.flickr.com/photos/craigmckenzie/46185011514/in/photostream/</p>
+    </div>
+    <div id="aboutLrgIMG">
+        <img src="Images/basket.jpg" height="250" alt="Basket Fungi" style="padding: 10px;">
+        <img src="Images/nzfalcon.jpg" height="250" alt="NZ Falcon" style="padding: 10px;">
+        <img src="Images/mountain.jpg" height="250" alt="Mitre Peak" style="padding: 10px;">
+        <div id="imgRefs">
+            <p>Spragg, B. (2022). <i>Basket fungi</i> [Photograph]. Flickr. https://www.flickr.com/photos/volvob12b/53534059196<p>
+            <p>McKenzie, C.  (2019). <i>New Zealand falcon</i> [Photograph]. Flickr. https://www.flickr.com/photos/craigmckenzie/46185011514/in/photostream/<p>
+            <p>Spragg, B. (2021). <i>Mitre Peak</i> [Photograph]. Flickr. https://www.flickr.com/photos/volvob12b/51242329542</p>
+        </div>
+    </div>
+    </div>
+</main>
+
+<script src="data.js"></script>
+
+<script>
+
+    function openSearch() {            
+        localStorage.setItem('searchInput', document.getElementById("searchInput").value); 
+        window.open("books.html", "_self");
+    }
+
+    function openSearchLRG() {            
+        localStorage.setItem('searchInputLarge', document.getElementById("searchInputLarge").value); 
+        window.open("books.html", "_self");
+    }
+
+</script>
+
+    <!--Footer Area--> 
+<footer> 
+    <div class="smallFooterNav">
+        <ul>
+            <li><input type="text" id="subscribeInput" onchange="subscribeNewsletter()"><button type="submit">Subscribe</button></li>
+            <br>
+            <li><a href="terms.html">Legal Information</a></li>
+            <br>
+           
+        </ul>
+    </div>
+
+    <div class="largeFooterNav">
+        <ul>
+            <li><a href="about.html" class="active">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><input type="text" id="subscribeInput"><button type="submit" onclick="subscribeNewsletter()">Subscribe</button></li>
+            <li><a href="terms.html">Legal Information</a></li>
+            
+        </ul>
+    </div>
+</footer>
+
+<script> 
+
+function subscribeNewsletter() {
+    alert("Thanks! We'll be in touch.");
+  }
+</script>
+
+</body>
+</html>

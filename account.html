@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Kārearea Press</title>
+</head>
+<!------------------------------BODY------------------------------------------------>
+<body>
+<!--Navigation bar--> 
+<nav>
+    <div class="navWrapper">
+    <div class="sandwich-icon-area">
+        <p onclick="openNav()"> &#9776;</p>
+    </div>
+
+    <div class="smallHorizontalNav">
+        <ul>
+            <li><input type="text" id="searchInput" onchange="openSearch()">
+            <li><a href="account.html" class="active"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></button></a></li>
+        </ul>
+    </div>
+
+    <div class="largeHorizontalNav">
+        <ul>
+            <li><a href="index.html"><i class="material-icons">home</i></a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><input type="text" id="searchInputLarge" onchange="openSearchLRG()">
+            <li><a href="account.html" class="active"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></a></li>
+        </ul>
+    </div>
+</div>
+
+<!--curtain menu-->
+    <div id="myNav" class="overlay">
+    <p class="close-icon" onclick="closeNav()"> &times;</p>
+    <div class="overlay-content">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+</div>
+    
+</nav>
+<!------------------------------Header Area-----------------------------------------> 
+ <header> 
+    <div>
+    <h1>Kārearea Press</h1> 
+    </div>
+</header>
+
+<!--Main Area--> 
+<main>
+    <!--<form action="action_page.php" method="post">-->
+      
+        <div class="accLogin">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+      
+          <button type="submit" onclick="logIN();">Login</button>
+
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+      
+        <div class="accLogin">
+          <span class="psw"><a href="#">Forgot password?</a></span>
+        </div>
+      </form>
+</main>
+
+<script src="data.js"></script>
+
+<script>
+
+    function openSearch() {            
+        localStorage.setItem('searchInput', document.getElementById("searchInput").value); 
+        window.open("books.html", "_self");
+    }
+
+    function openSearchLRG() {            
+        localStorage.setItem('searchInputLarge', document.getElementById("searchInputLarge").value); 
+        window.open("books.html", "_self");
+    }
+
+    function logIN() {
+        alert("Incorrect Username or Password");
+    }
+
+</script>
+
+    <!--Footer Area--> 
+<footer> 
+    <div class="smallFooterNav">
+        <ul>
+            <li><input type="text" id="subscribeInput" onchange="subscribeNewsletter()"><button type="submit">Subscribe</button></li>
+            <br>
+            <li><a href="terms.html">Legal Information</a></li>
+            <br>
+         
+        </ul>
+    </div>
+
+    <div class="largeFooterNav">
+        <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><input type="text" id="subscribeInput"><button type="submit" onclick="subscribeNewsletter()">Subscribe</button></li>
+            <li><a href="terms.html">Legal Information</a></li>
+          
+        </ul>
+    </div>
+</footer>
+
+<script> 
+
+function subscribeNewsletter() {
+    alert("Thanks! We'll be in touch.");
+  }
+</script>
+
+</body>
+</html>

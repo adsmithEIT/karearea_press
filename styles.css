@@ -1,110 +1,317 @@
-/*WE APPLY THE "MOBILE FIRST" APPROACH 
-All the below CSS styles are applied to small devices. On small devices: hide the horizontal navbar */
-/*Remove all default CSS styles */
-* {
+/*Remove all default CSS styles*/
+*{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-/*-------------------------------------*/
-/*Define styles for curtain menu navbar*/
-nav {
-    min-height: 10vh;
-    background-color: aqua;
+
+/*--------------------------------*/
+/*Navbar*/
+nav{
+    min-height: 5vh;
+    background-color: grey;
+    overflow: visible;
+    position: sticky;
+    top: 0;
 }
-/*Define style for the sandwich icon*/
+
+.navWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+
 .sandwich-icon-area {
-    font-size: 2em; /*1em=16px => 32px = 2em*/
-    float: none;
+    font-size: 1.5em; /*1em=16px*/
+    color: aliceblue;
+    cursor: pointer;
+    position: absolute;
+    left: 0.5em;
+}
+
+.smallHorizontalNav {
+    padding-left: 2em;
+}
+
+.largeHorizontalNav {
+    display: none;
+}
+
+.smallHorizontalNav input[type=text] {
+    
+    font-size: 1em;
+    background-color: white;
+    background-image: url('Images/search.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    /*padding: 12px 20px 12px 40px;*/
+    vertical-align: middle;
+  }
+
+
+.smallHorizontalNav button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;   
+    height: 4em;
+    width: 4em; 
+}
+
+.smallHorizontalNav button:hover {
+    background-color: #111;
+        } 
+
+.material-icons {
+    vertical-align: middle;
+}
+
+.close-icon {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    font-size: 2em;
+    color: white;
     cursor: pointer;
 }
-/*Define styles for the curtain menu layer*/
+
+/*define style for curtain menu layer*/
 .overlay {
     height: 100%;
-    width: 50%;
+    width: 33%;
     display: none; /*block: show; none: hide*/
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0, 0.7);
-    z-index: 1; /*Make this layer sit on top of other layer*/
+    background-color: rgba(0,0,0, 0.9);
+    z-index: 1; /*make this layer sit on top*/
 }
+
 .overlay-content {
     position: relative;
-    top: 25%;
+    top:3em;
     width: 100%;
-    text-align: center;
-    margin-top: 32px;
+    margin-top: 2em;
+    margin-left: 1em;
+    font-size: 10px;
 }
+
 .overlay a {
     padding: 8px;
-    text-decoration: none; /*remove all default styles*/
-    font-size: 2.0em;/*1em=16px => 2em = 32px*/
+    text-decoration: none; /*remove default style*/
+    font-size: 2em;
     color: white;
     display: block;
 }
-.close-icon {
-    position: absolute;
-    top: 1.0em;
-    right: 1.5em; /*1.5em = 1.5*16px = 24px */
-    font-size: 4.0em;
-    color: white;
-}
-/*Add hover effec to the hyperlinks */
+
+/*focus allows keyboard - hover just mouse et al*/
 .overlay a:hover, .overlay a:focus {
-    color: green;
+    color: grey;
 }
 
-/*------------------------------------*/
+nav ul {
+    list-style-type: none; /*Remove default styles*/
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    display: inline-block;
+   }
+
+   /*List items*/
+nav ul li {
+    display: inline-block;
+    font-family: sans-serif;
+
+    /*dropdown menu*/
+    position: relative; 
+   }
+
+nav ul li a {
+    display: block;
+    color: white;
+    padding: 1em;
+    text-decoration: none;
+    } 
+
+.active {
+background-color: lightgrey;
+    } 
+
+/*add hover effect on nav items*/
+nav ul li a:hover:not(.active) {
+background-color: #111;
+    } 
+
+/*---------------------------------*/
+header {
+    height: 25vh;
+    background-image: url("Images/falconcrop1.jpg"); 
+    background-size: cover;
+
+    /*Centralize the content inside this element both vertically and horizontally*/
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    }
+
+header h1 {
+    color: black;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 2em;
+    }
+
+/*-----------------------------------*/
 /*Define for Main*/
 main {
-    min-height: 80vh;
+    min-height: 65vh;
     background-color: white;
+    display: block;
 }
 
-#itemList {
-    display: block;
-    width: 100%;
+.banner {
+    display: flex; 
+    margin: 10px;
 }
-.item-card {       
-    display: block;
-    width: 90%;
-    margin-bottom: 10px;
-	margin-left: 5px;
-    padding: 5px;
-    background-color: wheat;
-    box-shadow: 5px 5px lightblue;
+
+.adBanner {
+    background-color:rgba(176, 39, 32, 0.8);
+    width: 85%;
+    padding: 20px;
+    margin: auto;
 }
-.item-card h4, .item-card p,  .item-card h3{
+
+#about {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#about h2 {
     text-align: center;
 }
-.item-card img {
+
+#aboutTXT {
+    padding: 20px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+
+#aboutLrgIMG {
+    display: none;
+}
+
+#aboutSmlIMG {
     display: block;
+    padding-bottom: 20px;
+}
+
+#aboutSmlIMG p {
+    font-size: .6em;
+}
+
+#legalTXT {
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
 
-.item-card button {
-    display: block;
+#legalTXT h2 {
+    text-align: center;
+}
+
+#copyright {
+    padding: 25px;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
-    background-color: yellow; 
-    padding: 3px;
+    text-align: justify;
+}
+
+#privacy {
+        padding: 25px;
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: justify;
+        margin-bottom: 5%;
+}
+
+.adImage {
+    width: 99%;
+    padding: 10px;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+.adText {
+    display: block;
+    width: 99%;
+    font-size: 1em;
+    color: aliceblue;
+}
+
+#address {
+    padding: 10px;
+    padding-bottom: 30px;
+    margin-left: 15px;
+}
+
+#address p {
+    font-size: 1.5em;
+}
+
+.previews h2 a {
+    font-family: sans-serif;
+    text-decoration: none;
+    color: rgb(79, 73, 73);
+    padding-left: 15px;
+}
+
+.bookCardLarge {
+    display: none;
+}
+
+.bookCard {
+    display: inline-block;
+}
+
+
+.bookCard img {
+    width: 32%;
+    padding-left: 10px;
+    height: 200px;
+}
+
+#checkOut {
+    padding: 20px;
 }
 
 .one-item-card {
-    background-color: pink;
-    padding: 5px;
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-bottom: 20px;
     margin: 5px;
-    width: 90%;
+    width: 95%;
 }
 
-/*Shopping cart*/
-#shopping-cart {
-    display: none;
-    background-color: pink; 
-    width: 90%;
-    padding: 10px;
+.one-item-card img {
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.one-item-card button {
+    font-size: 1.2em;
+    background-color: lightgrey;
+    border-color: grey;
+    padding: .3em;
+    border-radius: 4px;
 }
 
 table, th, td {
@@ -118,62 +325,458 @@ table {
     padding: 5px;
 }
 
+#checkout button {
+    font-size: 1.2em;
+    background-color: lightgrey;
+    border-color: grey;
+    padding: .3em;
+    border-radius: 4px;
+}
+
+#cartBottom {
+    text-align: right;
+    margin-right: 10px;
+}
+
+#removeBTN {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+
+}
 
 
-/*-----------------------------------*/
-/*Define for footer*/
+#itemBuy {
+    margin-left: 35%;
+    display: inline-block;
+}
+
+.sidenav {
+    display: none;
+    margin-left: 10px;
+}
+
+
+.bookSort {
+     display: inline-block;
+     text-align: right;
+     width: 48%;
+     margin-top: .5em;
+     margin-bottom: .5em;
+ }
+
+
+    .bookCat {
+        display: inline-block;
+        width: 48%;
+        margin-left: .5em;
+    }
+
+    #itemList {
+        display: inline-block;
+        width: 100%;
+    }
+
+    
+  .item-card {
+    display: inline-block;
+    margin: 2px;
+    width: 32%;
+  }
+
+  .item-card h3 {
+    color: black;
+    display: inline-block;
+    padding-left: .5em;
+  }
+
+  .item-card button {
+    margin-left: 1em;
+    background-color: lightgrey;
+    border-color: grey;
+    padding: .3em;
+    border-radius: 4px;
+  }
+
+  .item-card img {
+    padding-left: 10px;
+    height: 200px;
+  }
+
+  .one-item-card h4 {
+    font-size: 1.5em; 
+    padding: 15px;
+  }
+
+  .one-item-card p {
+    font-size: 1.5em;
+    padding: 15px;
+  }
+
+  /*---contact form--*/
+  /* Style inputs with type="text", select elements and textareas */
+.contactForm input[type=text], .contactForm select, .contactForm textarea {
+    width: 100%; 
+    padding: 12px;  
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    margin-bottom: 16px;
+    resize: vertical;
+  }
+  
+  
+  /* Add a background color and some padding around the form */
+  .contactForm {
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+  /*login form--------------------------
+  /* Bordered form */
+.accLogin form {
+    border: 3px solid #f1f1f1;
+  }
+  
+  /* Full-width inputs */
+  .accLogin input[type=text], .accLogin input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  .accLogin button {
+    cursor: pointer;
+    width: 20%;
+    background-color: lightgrey;
+    border-color: grey;
+    padding: .3em;
+    border-radius: 4px;
+    margin-right: 2em;
+  }
+  
+  /* Add a hover effect for buttons */
+  .accLogin button:hover {
+    opacity: 0.8;
+  }
+  
+  
+  /* Add padding to containers */
+  .accLogin {
+    padding: 16px;
+  }
+  
+  /* The "Forgot password" text */
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  
+  .contactForm button {
+    cursor: pointer;
+    width: 20%;
+    background-color: lightgrey;
+    border-color: grey;
+    padding: .3em;
+    border-radius: 4px;
+    margin-right: 2em;
+  }
+
+
+
+/*--Footer--*/
+
 footer {
-    height: 10vh;
-    background-color: aqua;
-    /*Centralize the footer text*/
+    min-height: 5vh;
+    background-color: grey;
+}
+
+footer li a:hover:not(.active) {
+    background-color: #111;
+   } 
+
+.largeFooterNav {
+    display: none;
+}
+
+.smallFooterNav {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
-footer p {
-    font-size: 20px;/*Default font-size is 16px */
-    font-weight: bold;
+
+.smallFooterNav li {
+    display: block;
+    color: white;
+    font-family: sans-serif;
+    font-size: 1em;
     text-align: center;
 }
 
-
-/*----------------------------------------------------------*/
-/*All the below CSS styles will be applied for medium devices */
-@media screen and (min-width: 426px) {
-    /*All styles here are for medium devices*/
-    #itemList {
-        display: flex;
-		flex-flow: row wrap;
-    }
-    .item-card {       
-        width: 45%;
-		margin: 5px;
-		border: 2px solid black;
-        background-color: lightpink;
-    }
+.smallFooterNav a {
+    text-decoration: none;
+    color: white;
 }
 
-/*All the below CSS styles will be applied for big devices */
+/*below style applied to large screens*/
 @media screen and (min-width: 769px) {
-    /*All styles here are for big devices*/
-    #itemList {
+
+    .sandwich-icon-area {
+       display: none;
+    }
+    
+    .smallHorizontalNav {
+        display: none;
+    }
+
+    .largeHorizontalNav {
         display: flex;
-		flex-flow: row wrap;
     }
-    .item-card {       
+
+     /*Dropdown submenu*/
+    .dropdown {
+        background-color: gray;
+        visibility: hidden; /*Invisible when opening the webpage*/
+        opacity: 0;
+        position: absolute;
+        transition: all 1s ease; /*Animation*/
+        left: 0;
+        display: none;
+    }
+
+   /*When hovering over on "item" (li) on primary menu, show the dropdown submenu (ul) inside it */
+   nav ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+   }
+
+   /*Define width of the dropdown items*/
+   .dropdown li {
+    width: 100%;
+   } 
+
+   .largeHorizontalNav input[type=text] {
+    
+    font-size: 1em;
+    background-color: white;
+    background-image: url('Images/search.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    /*padding: 12px 20px 12px 40px;*/
+    vertical-align: middle;
+  }
+
+  #aboutTXT {
+    width: 65%;
+  }
+
+  #aboutLrgIMG {
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+#imgRefs p {
+   font-size: .6em;
+}
+
+#imgRefs {
+    text-align: left;
+    margin-left: 15px;
+}
+
+#aboutSmlIMG {
+    display: none;
+}
+
+
+#contact {
+    width: 95%;
+    padding: 20px;
+    margin: auto;
+}
+
+.contactForm {
+    width: 49%;
+    padding: 10px;
+    margin: auto;
+    display: inline-block;
+    text-align: left;
+}
+
+#address {
+    display: inline-block;
+    width: 40%;
+    vertical-align: top;
+    padding-top: 15px;
+}
+
+  .adImage {
+    width: 49%;
+    padding: 10px;
+    margin: auto;
+    display: inline-block;
+    text-align: center;
+}
+
+.adText {
+    display: inline-block;
+    width: 49%;
+    font-size: 1.5em;
+    vertical-align: top;
+    padding-top: 15px;
+}
+   .bookCat {
+    display: none;
+   }
+
+   .bookSort {
+    width: 100%;
+    padding-right: 10px;
+   }
+
+   .bookCard {
+    display: none;
+}
+
+.bookCardLarge {
+    display: inline-block;
+    margin-left: 4%;
+}
+
+.bookCardLarge img {
+    width: 19%;
+    padding: 10px;
+    height: 300px;
+}
+
+#legalTXT {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#copyright {
+    width: 65%;
+
+}
+
+#privacy {
+    width: 65%;
+}
+
+   /*---Side Nav---------*/
+    .sidenav {
+        display: inline-block;
+        width: 15%;
+        vertical-align: top;
+    }
+  
+    .sidenav button {
+        background: none;
+        border: none;
+        padding: 5px;
+        font-family: sans-serif;
+        font-size: 1.5em;
+        color: black;
+        cursor: pointer;
+    }
+
+    .largeHorizontalNav button {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;   
+        height: 4em;
+        width: 4em; 
+    }
+
+    .largeHorizontalNav button:hover {
+        background-color: #111;
+            } 
+
+    #itemList {
+        display: inline-block;
+        width: 83%;  
+    }
+
+    .item-card {
+        display: inline-block;
+        padding-left: 30px;
         width: 19%;
-		margin: 5px;
-		border: 2px solid black;
-        background-color: orange;
+        height: 200px;
+        margin: 2px;
+      }
+
+      #largeItemDis {
+        display: flex;
+
+      }
+
+      .one-item-card img {
+        display: inline-block;
+        margin-left: 10%;
+       /*vertical-align: top;*/
+        margin-right: none;
+       
     }
 
-    .one-item-card {
-        width: 50%;
+    #itemDescr {
+        display: inline-block;
+        width: 40%;
+        margin-right: 10%;
+        padding-top: 5px;
     }
 
-    /*Shopping cart*/
-    #shopping-cart {
-        width: 50%;
+    #itemText {
+        display: block;
+        text-align: center;
+        
     }
 
+
+    #prevLRG {
+        margin-left: 15px;
+        margin-top: 15px;
+    }
+
+    #itemBuy {
+        margin-left: 20%;
+    }
+    
+
+   footer li {
+    display: inline-block; /*All items in same row*/
+    font-family: sans-serif;
+    font-size: 1em;
+
+   }
+
+   footer li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+   } 
+   
+   .smallFooterNav {
+    display: none;
+    }
+
+   .largeFooterNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
 }

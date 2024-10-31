@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Kārearea Press</title>
+</head>
+<!------------------------------BODY------------------------------------------------>
+<body>
+<!--Navigation bar--> 
+<nav>
+    <div class="navWrapper">
+    <div class="sandwich-icon-area">
+        <p onclick="openNav()"> &#9776;</p>
+    </div>
+
+    <div class="smallHorizontalNav">
+        <ul>
+            <li><input type="text" id="searchInput" onchange="displayFilteredItems()">
+            <li><a href="account.html"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></button></a></li>
+        </ul>
+    </div>
+
+    <div class="largeHorizontalNav">
+        <ul>
+            <li><a href="index.html"><i class="material-icons">home</i></a></li>
+            <li><a href="books.html" class="active">Books</a></li>
+            <li><input type="text" id="searchInputLarge" onchange="displayFilteredItemsLarge()">
+            <li><a href="account.html"><i class="material-icons">person</i></a></li>
+            <li><button onclick='window.open("cart.html", "_self")'><i class="material-icons">shopping_cart</i></a></li>
+        </ul>
+    </div>
+</div>
+
+<!--curtain menu-->
+    <div id="myNav" class="overlay">
+    <p class="close-icon" onclick="closeNav()"> &times;</p>
+    <div class="overlay-content">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+</div>
+    
+</nav>
+
+
+
+<!------------------------------Header Area-----------------------------------------> 
+ <header> 
+    <div>
+    <h1>Kārearea Press</h1> 
+    </div>
+</header>
+
+<!--Main Area--> 
+<main>
+   
+    <div>
+        <div class="bookCat">
+            <!--<label>Category</label>-->
+            <select style="padding: 5px; font-size: 1em;" id="categoryID" onchange="sortByCategory(this.value)">
+                <option>Category</option>
+                <option value="all">All Books</option>
+                <option value="new">New Books</option>
+            </select>
+        </div>
+    
+        <div class="bookSort">
+            <select style="padding: 5px; padding-right: 40px; font-size: 1em;" id="sort" onChange="OnSelectedIndexChange()">
+                <option>Sort</option>
+                <option value="year">Year</option>
+                <option value="title">Title</option>
+                <option value="price">Price</option>
+            </select>
+            
+        </div>
+    </div>
+
+    <!--Side Nav-->
+    <div class="sidenav" >
+        <button onclick="sortByCategory('new')">New</button> <br>
+        <button onclick="sortByCategory(1)">Fauna</button> <br>
+        <button onclick="sortByCategory(2)">Flora</button> <br>
+        <button onclick="sortByCategory(3)">Terra</button> <br>
+        <button onclick="sortByCategory('all')"> All Books</button>
+    </div>
+
+    <div id="itemList"></div>
+    
+</main>
+
+<script src="data.js"></script>
+
+<script>
+    
+    function showItem(i) {
+      // ON PAGE1: save itemID to localStorage
+      localStorage.setItem('selectedItemID', i); 
+      //Open a new webpage
+      //window.open("itempage.html", "_blank");
+      window.open("itempage.html", "_self");
+    }
+
+</script>
+
+
+<script> 
+    function openShoppingCart() {
+        //In oder to transfer the array of selectedItem from this page "Products.html" to "shopping-cart.html"
+        //we store the selected items array in localstorage variable: "selectedItems" here
+        //	and retrieve this value in shopping-cart.html page
+        localStorage.setItem('selectedItems', JSON.stringify(selectedItems));	
+        
+        //Open shopping-cart page
+        window.open("cart.html", "_blank");
+    }
+</script>
+
+
+
+<script>
+    //Book display
+//---------------------------------------------
+//FUNCTION: COLLECT ALL ITEMS FROM AN ARRAY
+function displayAllItems(itemList){
+  let allItems = "";
+  for(let i=0; i < itemList.length; i++){
+    let item =  '<div class="item-card">'
+    +    '<img src=' + itemList[i].image_url + ' width="100%" onclick="showItem(' + itemList[i].id.toString() + ')">'
+    +    '<button onclick="addToCart(' + itemList[i].id + ')"> Add to Cart </button>'
+    +    '<h3>$' + itemList[i].price + '</h3>'
+    +    '<br>'
+    +    '<br>'
+    +  '</div>' ;
+
+    allItems += item;
+    }
+    return allItems;
+    }
+ //          
+ document.getElementById("itemList").innerHTML = displayAllItems(items);
+  
+
+  //By category
+  //Populate the select "options" with all categories in the array when the page is loaded
+  function loadCategories(categoryArray, selectMenu) {
+      //Clear the selectMenu if it's existing
+      //selectMenu.innerHTML = "";
+      //Loop through all items in the categories array and add a new option to the "select" element
+      for(let i=0; i < categoryArray.length; i++) {
+        //Create a new option and then add it to the "select" element
+        let newOption = document.createElement("option");
+        newOption.text = categoryArray[i].category;
+        newOption.value = categoryArray[i].id.toString();
+        selectMenu.appendChild(newOption);
+      }
+      //Set the first item as selected option in drop-down list
+      document.getElementById("categoryID").selectedIndex= "0"; 
+    }
+
+    //call to execute this function when loading the webpage
+    loadCategories(categories, document.getElementById("categoryID"));
+    
+    function sortByCategory(selectedCateogryID) {
+      //Get the selected category "option value"
+      //let selectedCateogryID = document.getElementById("categoryID").value; 
+
+      //Check if the selectedCategoryID = 'all', not filter. Else filtering based on catergoryid
+      let filteredItems = "";
+      if (selectedCateogryID == 'all') {
+        filteredItems = items;
+      } else if(selectedCateogryID == 'new') {
+        //new books option
+        filteredItems = items.filter(item => {
+            return item.year == '2024';
+        })
+      } else {
+        //Filter all items by category
+        filteredItems = items.filter(item => {
+        return item.category == selectedCateogryID;
+        });
+      }
+
+      //Display the filtered items
+      document.getElementById("itemList").innerHTML = displayAllItems(filteredItems);
+    }      
+    
+//------------------------------------------------------
+    
+
+//ADD ITEM TO CART
+let itemInCart = [];
+// Retrieving the items in the cart
+let retString = localStorage.getItem("updatedShoppingCart");
+// Retrieved array
+//Check if this retString is null or null?
+if (retString == null || retString == "") {
+    itemInCart = [];
+} else  {
+    itemInCart = JSON.parse(retString);	
+}
+
+//
+function addToCart(id) {              
+    //CHECKOUT - Open a separate cart page
+    //Store this updated itemInCart in localStorage
+    let alreadyExist = false;
+    for (let index = 0; index < itemInCart.length; index++) {
+        if (itemInCart[index].id == id) {
+            itemInCart[index].quantity = itemInCart[index].quantity + 1;
+            alreadyExist = true;
+        }
+    }
+    if (!alreadyExist) {
+        itemInCart.push({id: id, quantity: 1});
+    }
+
+    //----------------------------------------
+    //CHECKOUT - Open a separate cart page
+    //Store this updated itemInCart in localStorage
+    localStorage.setItem("updatedShoppingCart", JSON.stringify(itemInCart));
+
+
+}
+
+</script>
+
+
+
+
+<script>
+    //function for changed selection
+    function OnSelectedIndexChange()
+    { if (document.getElementById('sort').value == "year"){
+        sortByYear();
+    } else if (document.getElementById('sort').value == "title"){
+        sortByTitle();
+    } else if (document.getElementById('sort').value == "price"){
+        sortByPrice();
+    }}
+        //SORTING
+    //By price
+    function sortByPrice() {
+    //Sort all items by prices
+    let sortedItems = items.sort((item1, item2) => (item1.price < item2.price) ? 1 : -1);
+    //Display the sorted items
+    document.getElementById("itemList").innerHTML = displayAllItems(sortedItems);
+    }
+    //By year
+    function sortByYear() {
+    //Sort all items by years
+    let sortedItems = items.sort((item1, item2) => (item1.year < item2.year) ? 1 : -1);
+    //Display the sorted items
+    document.getElementById("itemList").innerHTML = displayAllItems(sortedItems);
+    }
+
+    //By title
+    function sortByTitle() {
+    //Sort all items by title
+    let sortedItems = items.sort((item1, item2) => (item1.title > item2.title) ? 1 : -1);
+    //Display the sorted items
+    document.getElementById("itemList").innerHTML = displayAllItems(sortedItems);
+    }
+
+</script>
+
+
+
+<script>
+    //SEARCH FEATURE
+    //Filter feature: https://www.w3schools.com/jsref/jsref_filter.asp
+    function displayFilteredItems() {
+        //Get keyword entered by user
+        let keyword = document.getElementById("searchInput").value.toLowerCase();
+        //Get filtered items
+        let filteredItems = items.filter(item => {
+        return item.title.toLowerCase().includes(keyword);
+        });
+        //Display the filtered items
+        document.getElementById("itemList").innerHTML = displayAllItems(filteredItems);
+    }
+</script>
+
+<script>
+    function displayFilteredItemsLarge() {
+        //Get keyword entered by user
+        let keyword = document.getElementById("searchInputLarge").value.toLowerCase();
+        //Get filtered items
+        let filteredItems = items.filter(item => {
+        return item.title.toLowerCase().includes(keyword);
+        });
+        //Display the filtered items
+        document.getElementById("itemList").innerHTML = displayAllItems(filteredItems);
+    }
+
+
+    //Retrieve the keywords passed from "Homepage" and filter the items accordingly and display these filtered items
+    let passedKeyWords = localStorage.getItem("searchInputLarge");
+    if (passedKeyWords == "" || passedKeyWords == null) {
+        //do nothing
+    } else {
+        //Contain the keywords passed from Home, filter and display
+        let filteredItems = items.filter(item => {
+        return item.title.toLowerCase().includes(passedKeyWords);
+        });
+        //Display the filtered items
+        document.getElementById("itemList").innerHTML = displayAllItems(filteredItems);
+        //AFTER FILTER, WE NEED TO CLEAR THE PASSED KEYWORDS
+        localStorage.setItem('searchInputLarge', ""); 
+    }
+
+    function displayFilteredItems() {
+        //Get keyword entered by user
+        let keyword = document.getElementById("searchInput").value.toLowerCase();
+        //Get filtered items
+        let filteredItems = items.filter(item => {
+        return item.title.toLowerCase().includes(keyword);
+        });
+        //Display the filtered items
+        document.getElementById("itemList").innerHTML = displayAllItems(filteredItems);
+    }
+
+
+    //Retrieve the keywords passed from "Homepage" and filter the items accordingly and display these filtered items
+    let passedKeyWord = localStorage.getItem("searchInput");
+    if (passedKeyWord == "" || passedKeyWord == null) {
+        //do nothing
+    } else {
+        //Contain the keywords passed from Home, filter and display
+        let filteredItems = items.filter(item => {
+        return item.title.toLowerCase().includes(passedKeyWord);
+        });
+        //Display the filtered items
+        document.getElementById("itemList").innerHTML = displayAllItems(filteredItems);
+        //AFTER FILTER, WE NEED TO CLEAR THE PASSED KEYWORDS
+        localStorage.setItem('searchInput', ""); 
+    }
+
+
+</script>
+
+
+
+
+
+
+
+<!--Footer Area--> 
+<footer> 
+    <div class="smallFooterNav">
+        <ul>
+            <li><input type="text" id="subscribeInput" onchange="subscribeNewsletter()"><button type="submit">Subscribe</button></li>
+            <br>
+            <li><a href="terms.html">Legal Information</a></li>
+            <br>
+            
+        </ul>
+    </div>
+
+    <div class="largeFooterNav">
+        <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><input type="text" id="subscribeInput" onchange="subscribeNewsletter()"><button type="submit">Subscribe</button></li>
+            <li><a href="terms.html">Legal Information</a></li>
+       
+        </ul>
+    </div>
+</footer>
+
+<script> 
+ function subscribeNewsletter() {
+    alert("Thanks! We'll be in touch.");
+  }
+</script>
+
+</body>
+</html>
